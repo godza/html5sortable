@@ -1,6 +1,10 @@
 HTML5 Sortable jQuery Plugin
 ============================
 
+Changes From the Original Version
+--------
+* `sortupdate` event now provides `from` and `to` indexes of dragged item
+
 **[Demos & Documentation](http://farhadi.ir/projects/html5sortable)**
 
 Features
