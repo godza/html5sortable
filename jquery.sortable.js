@@ -64,6 +64,9 @@ $.fn.sortable = function(options) {
 				return true;
 			}
 			if (e.type == 'drop') {
+        if (options.forcePlaceholderSize) {
+          placeholder.removeClass('forcedPlaceholderSize');
+        } // if
 				e.stopPropagation();
 				placeholders.filter(':visible').after(dragging);
 				dragging.trigger('dragend.h5s');
@@ -72,9 +75,10 @@ $.fn.sortable = function(options) {
 			e.preventDefault();
 			e.originalEvent.dataTransfer.dropEffect = 'move';
 			if (items.is(this)) {
-				if (options.forcePlaceholderSize) {
-					placeholder.height(dragging.outerHeight());
-				}
+        if (options.forcePlaceholderSize && !placeholder.is('.forcedPlaceholderSize')) {
+          placeholder.addClass('forcedPlaceholderSize');
+          placeholder.height(dragging.outerHeight());
+        }
 				dragging.hide();
 				$(this)[placeholder.index() < $(this).index() ? 'after' : 'before'](placeholder);
 				placeholders.not(placeholder).detach();
