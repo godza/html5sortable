@@ -53,9 +53,15 @@ $.fn.sortable = function(options) {
         dragging.parent().trigger('sortupdate', { item : dragging, from : index, to : dragging.index() });
 			}
 			dragging = null;
-		}).not('a[href], img').on('selectstart.h5s', function() {
-			this.dragDrop && this.dragDrop();
-			return false;
+		}).not('a[href], img').on('selectstart.h5s', function(event) {
+			// if event originates from input field, let it be
+			if ($(event.target).is('input, textarea, select')) {
+				return true;
+			} else {
+				this.dragDrop && this.dragDrop();
+				return false;
+			}
+
 		}).end().add([this, placeholder]).on('dragover.h5s dragenter.h5s drop.h5s', function(e) {
 			if (!items.is(dragging) && options.connectWith !== $(dragging).parent().data('connectWith')) {
 				return true;
